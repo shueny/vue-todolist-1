@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC|Nunito');
+$dark-grey: #4a4a4a;
+$light-grey: #bfbfbf;
+$red: #ff3f3f;
+$dark-blue: #35455D;
+$blue: #3f72ff;
+$green: #00a916;
+$orange: #FFCC22;
+$mango: #FFCC22;
+$white: #ffffff;
+$font4: 4px;
+$font-family: "Nunito","Noto Sans TC", sans-serif;
+
+$pc-media: 960px;
+$pcs-media: 959px;
+$pad-media: 760px;
+$pads-media: 759px;
+$phone-media: 480px;
+$phones-media: 479px;
+
+//電腦
+@mixin pc-width() {
+  @media all and (min-width: $pc-media) {
+    @content;
+  }
+}
+//平板
+@mixin pad-width() {
+@media all and (min-width:$pad-media) and (max-width: $pcs-media) {
+    @content;
+  }
+}
+//小平板
+@mixin small-pad-width() {
+  @media all and (min-width: $phone-media) and (max-width:$pads-media) {
+    @content;
+  }
+}
+//手機
+@mixin phone-width() {
+  @media all and (max-width: $phones-media) {
+    @content;
+  }
+}
+
+html {
+  font-size: 16px;
+  @media (max-width: 768px) {
+      font-size: 12px;
+  }
+}
+
+body,
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6,
+p, #app {
+  font-family: $font-family;
+  color: $dark-grey;
+}
+
+a {
+  display: block;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+ul,
+li {
+  list-style: none;
+  padding-left: 0;
+}
+.btn {
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.line {
+  &-grey {
+    height: $font4 * 5;
+    position: relative;
+
+    &::before {
+      position: absolute;
+      content: "";
+      height: 1px;
+      width: 100%;
+      background-color: $dark-blue;
+      left: 0;
+      top: 49%; 
+    }
+  }
+}
+
+.btn {
+  &-link {
+    color: $dark-grey;
+    &:hover {
+      text-decoration: underline;
+      color: inherit;
+      // color: $white;
+      // background-color: lighten($dark-blue, 55%);
+    }
+  }
+}
+
+.bg {
+  &-img {
+    height: $font4*90;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: $mango;
+    overflow: hidden;
+    position: relative;
+
+    &--big {
+      height: 600px;
+      background-position: center center;
+    }
+
+    .bg-cover {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      background-color: rgba(255,255,255, 0.5);
+    }
+
+    @include phone-width{
+      padding:0px;
+    }
+  }
+}

@@ -1,0 +1,258 @@
+@import "@/assets/scss/_variables.scss";
+.app-todo {
+  .container {
+    max-width: 375px;
+    margin: ($font4 * 3 - 2px) auto;
+    border: 1px solid $orange;
+    padding: 0;
+    border-radius: 0.5em;
+    overflow: hidden;
+    font-family: $font-family;
+    box-shadow: $font4 $font4 * 2 $font4 * 4 0 rgba(0, 0, 0, 0.1);
+
+    .header {
+      max-height: $font4 * 15;
+      padding: $font4 * 4;
+      background: $orange;
+      border-top-left-radius: 0.5em;
+      border-top-right-radius: 0.5em;
+
+      .text {
+        height: $font4 * 8 - 2px;
+        text-align: left;
+        line-height: $font4 * 8 - 2px;
+        font-family: $font-family;
+        color: $dark-grey;
+
+        span {
+          margin-right: 5px;
+          display: inline-block;
+
+          &:last-child {
+            margin-right: 0;
+          }
+          &.day {
+            font-size: $font4 * 9;
+            font-weight: bold;
+          }
+
+          &.week {
+            font-size: $font4 * 6;
+            float: right;
+          }
+          b {
+            display: block;
+            line-height: $font4 * 4;
+            font-weight: normal;
+          }
+        }
+      }
+    }
+    .addTask {
+      padding: $font4 * 2 - 2px;
+      position: relative;
+
+      input {
+        width: 100%;
+        height: $font4 * 9 - 1px;
+        border-radius: $font4 * 5;
+        border: 1px solid $orange;
+        padding-right: $font4 * 10;
+        padding-left: $font4 * 3 - 2px;
+        -webkit-appearance: none;
+        outline: 0px;
+        color: lighten($dark-grey, 30%);
+
+        &:focus {
+          width: 100%;
+          height: $font4 * 8;
+          border-radius: $font4 * 8;
+          border: 1px solid $orange;
+        }
+      }
+    }
+    .btn {
+      font-size: $font4 * 4;
+      line-height: $font4 * 4;
+      padding: 0 $font4;
+      color: lighten($dark-grey, 20%);
+
+      &:hover,
+      &:focus {
+        color: $white;
+        background: darken($white, 15%);
+      }
+      &--add {
+        width: $font4 * 9 - 2px;
+        height: $font4 * 9 - 2px;
+        font-size: $font4 * 8 - 2px;
+        background: $orange;
+        border-radius: 50%;
+        color: $white;
+        font-weight: bold;
+        font-size: $font4 * 8 - 2px;
+        line-height: $font4 * 4;
+        padding: $font4 * 2 ($font4 * 2 + 1px);
+        right: $font4 * 2 - 2px;
+        transition: 250ms ease-out;
+        position: absolute;
+        box-shadow: 1px 1px $font4 $light-grey;
+        border: 0px;
+        color: $white !important;
+        top: $font4 * 2 - 2px;
+
+        
+        &:hover,
+        &:focus {
+            color: #fff;
+            background: darken($orange, 25%);
+        }
+      }
+
+      &.filters__btn {
+        width: auto;
+        height: auto;
+        background: $white;
+        border: 1px solid $dark-grey;
+        color: lighten($dark-grey, 25%);
+        display: inline-flex;
+        justify-content: space-around;
+        font-size: $font4 * 4;
+        border: 1px solid lighten($dark-grey, 25%);
+        border-radius: $font4 * 6;
+        font-weight: normal;
+
+        &--add {
+          margin: 0;
+        }
+
+        &:hover {
+          color: $white;
+          background: lighten($dark-grey, 35%);
+        }
+        &.active {
+          color: $white;
+          border-color: $white;
+          background: $orange;
+        }
+      }
+      &--save {
+        background-color: darken($mango, 10%);
+        color: $white;
+        padding: .375rem .75rem;
+        border: 0px;
+      }
+    }
+    .filters {
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      padding: 0 1rem 1.5rem 1rem;
+    }
+
+    .todoList {
+      padding: 10px;
+    }
+
+    .list-group-item {
+      border-radius: 0;
+      border: 0;
+      border-bottom: 1px solid lighten($dark-grey, 50%);
+      padding-right: 0.4rem;
+      padding-left: 0;
+      background: rgba($white, 0);
+
+      .form-check {
+        width: 100%;
+        padding: 0;
+
+        &:hover input ~ .checkmark {
+          background-color: darken($orange, 10%);
+        }
+        input:checked ~ .checkmark {
+          background-color: $orange;
+          opacity: 1;
+
+          &:after {
+            display: block;
+          }
+        }
+
+        &-input {
+          height: 0;
+          width: 0;
+        }
+        &-label {
+          width: 100%;
+          padding-left: $font4 * 7;
+          position: relative;
+
+          .checkmark {
+            position: absolute;
+            top: $font4 - 2px;
+            left: 0;
+            height: $font4 * 5;
+            width: $font4 * 5;
+            background-color: lighten($dark-grey, 20%);
+            border-radius: $font4;
+            opacity: 0.5;
+
+            &:after {
+              content: "";
+              position: absolute;
+              display: none;
+            }
+          }
+
+          &.completed {
+            text-decoration: line-through;
+            color: lighten($dark-grey, 30%);
+            opacity: 1;
+
+            .checkmark {
+              &::after {
+                left: $font4 * 2 - 1px;
+                top: $font4 - 2px;
+                width: $font4 * 2 - 1px;
+                height: $font4 * 3;
+                border: solid $white;
+                border-width: 0 3px 3px 0;
+                //Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+                transform: rotate(45deg);
+                animation: check 0.5s ease-in-out;
+              }
+            }
+          }
+        }
+      }
+      .btn {
+        opacity: 0.5;
+
+        &.active {
+          color: $mango;
+        }
+      }
+    }
+  }
+
+  .noteArea {
+    font-size: $font4*3;
+    color: lighten($dark-grey, 20%);
+    opacity: 0.5;
+  }
+
+  @keyframes check {
+    0% {
+      height: 0;
+      width: 0;
+    }
+    25% {
+      height: 0;
+      width: $font4 * 2 - 1px;
+    }
+    50% {
+      height: $font4 * 5;
+      width: $font4 * 2 - 1px;
+    }
+  }
+}
