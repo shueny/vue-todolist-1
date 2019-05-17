@@ -49,8 +49,9 @@
       }
     }
     .addTask {
-      padding: $font4 * 2 - 2px;
+      padding: $font4 * 4;
       position: relative;
+      background-color: $mango;
 
       input {
         width: 100%;
@@ -76,6 +77,7 @@
       line-height: $font4 * 4;
       padding: 0 $font4;
       color: lighten($dark-grey, 20%);
+      cursor: pointer;
 
       &:hover,
       &:focus {
@@ -92,20 +94,21 @@
         font-weight: bold;
         font-size: $font4 * 8 - 2px;
         line-height: $font4 * 4;
-        padding: $font4 * 2 ($font4 * 2 + 1px);
-        right: $font4 * 2 - 2px;
+        padding: ($font4 * 2 - 3px) ($font4 * 2 - 1px);
+        right: $font4 * 4;
         transition: 250ms ease-out;
         position: absolute;
-        box-shadow: 1px 1px $font4 $light-grey;
-        border: 0px;
-        color: $white !important;
-        top: $font4 * 2 - 2px;
+        // box-shadow: 1px 1px $font4 $light-grey;
+        border: 2px solid $white;
+        top: $font4 * 4;
+        transition: all 0.3s ease-in-out;
 
         
         &:hover,
         &:focus {
             color: #fff;
-            background: darken($orange, 25%);
+            background: lighten($orange, 25%);
+            transform: rotate(45deg);
         }
       }
 
@@ -134,6 +137,7 @@
           color: $white;
           border-color: $white;
           background: $orange;
+          box-shadow: none;
         }
       }
       &--save {
@@ -151,13 +155,13 @@
     }
 
     .todoList {
-      padding: 10px;
+      padding: $font4*4;
     }
 
     .list-group-item {
       border-radius: 0;
       border: 0;
-      border-bottom: 1px solid lighten($dark-grey, 50%);
+      // border-bottom: 1px solid lighten($dark-grey, 50%);
       padding-right: 0.4rem;
       padding-left: 0;
       background: rgba($white, 0);
