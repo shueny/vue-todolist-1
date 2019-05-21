@@ -23,7 +23,7 @@
              @cancel-item='cancelEdit'
              @remove-todo='removeTodo'
              @edit-todo='editTodo'
-             @done-edit='done-edit'
+             @done-edit='doneEdit'
              @delete-todo='deleteTodos'
              @mark-todo='markTodos'
             ></TodoList>
@@ -112,11 +112,11 @@ import TodoList from '@/components/TodoList.vue'
 const moment = require('moment')
 
 const STORAGE_KEY = 'todos-vuejs'// 名稱
-let todoStorage = {
+const todoStorage = {
   fetch () {
     const todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
-    todos.forEach((todo, index) => {
-      todo.id = index
+    todos.forEach((item, index) => {
+      item.id = index
     })
     todoStorage.uid = todos.length
     return todos
@@ -179,7 +179,7 @@ export default {
           completed: false,
           marked: false,
           comments: [],
-          messageDate: moment().format('L') + " " + moment().format('LT')
+          messageDate: moment().format('L') + ' ' + moment().format('LT')
         })
       }
       // reset newTodo
@@ -223,6 +223,9 @@ export default {
       this.cacheTodo = {}
     },
     deleteTodos () {
+      this.todos = []
+    },
+    completeTodos (item) {
       this.todos = []
     },
     markTodos (item) {
