@@ -14,9 +14,38 @@
       </section>
       <section class="content">
         <div>
-          <div class="todoList">
+          <!-- allFilter -->
+          <div class="todoList" v-if="allFilter">
             <TodoList
-             v-for='item in filteredTodos'
+             v-for='item in allTodos'
+             :key='item.index'
+             :item='item'
+             @cancel-item='cancelEdit'
+             @remove-todo='removeTodo'
+             @edit-todo='editTodo'
+             @done-edit='done-edit'
+             @delete-todo='deleteTodos'
+             @mark-todo='markTodos'
+            ></TodoList>
+          </div>
+          <!-- doneFilter -->
+          <div class="todoList" v-if="doneFilter">
+            <TodoList
+             v-for='item in doneTodos'
+             :key='item.index'
+             :item='item'
+             @cancel-item='cancelEdit'
+             @remove-todo='removeTodo'
+             @edit-todo='editTodo'
+             @done-edit='done-edit'
+             @delete-todo='deleteTodos'
+             @mark-todo='markTodos'
+            ></TodoList>
+          </div>
+          <!-- todoFilter -->
+          <div class="todoList" v-if="todoFilter">
+            <TodoList
+             v-for='item in undoneTodos'
              :key='item.index'
              :item='item'
              @cancel-item='cancelEdit'
@@ -30,12 +59,12 @@
         </div>
       </section>
       <div class="filters">
-        <button class="btn filters__btn filters__btn--all p-2" :class="{'active': visibility == 'all'}"
-        @click="visibility = 'all'">All</button>
-        <button class="btn filters__btn filters__btn--complete p-2" :class="{'active': visibility == 'completed'}"
-        @click="visibility = 'completed'">Complete</button>
-        <button class="btn filters__btn filters__btn--incomplete p-2" :class="{'active': visibility == 'doing'}"
-        @click="visibility = 'doing'">Incomplete</button>
+        <button class="btn filters__btn filters__btn--all p-2" :class="{'active': allFilter }"
+        @click="sortAll">All</button>
+        <button class="btn filters__btn filters__btn--complete p-2" :class="{'active': doneFilter }"
+        @click="sortDone">Complete</button>
+        <button class="btn filters__btn filters__btn--incomplete p-2" :class="{'active': todoFilter }"
+        @click="sortTodo">Incomplete</button>
       </div>
     </div>
     <!-- Modal -->
@@ -79,12 +108,11 @@
 
 <script>
 import TodoList from '@/components/TodoList.vue'
-import Datepicker from 'vuejs-datepicker'
 
 const moment = require('moment')
 
 const STORAGE_KEY = 'todos-vuejs'// 名稱
-var todoStorage = {
+let todoStorage = {
   fetch () {
     const todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
     todos.forEach((todo, index) => {
@@ -100,7 +128,7 @@ var todoStorage = {
 
 export default {
   name: 'Todo',
-  components: { TodoList, Datepicker },
+  components: { TodoList },
   data () {
     return {
       newTodo: '',
@@ -126,7 +154,9 @@ export default {
       cacheComment: {},
       cacheCommentTitle: '',
       commentText: '',
-      visibility: 'all',
+      allFilter: true,
+      todoFilter: false,
+      doneFilter: false,
       day: moment().format('DD'),
       year: moment().format('YYYY'),
       month: moment().format('MMM'),
@@ -159,6 +189,21 @@ export default {
     },
     updateCurrentTime () {
       this.timeMessage = moment().format('LTS')
+    },
+    sortAll () {
+      this.allFilter = true
+      this.todoFilter = false
+      this.doneFilter = false
+    },
+    sortTodo () {
+      this.allFilter = false
+      this.todoFilter = true
+      this.doneFilter = false
+    },
+    sortDone () {
+      this.allFilter = false
+      this.todoFilter = false
+      this.doneFilter = true
     },
     cancelEdit () {
       this.cacheTodo = {}
@@ -198,25 +243,14 @@ export default {
     }
   },
   computed: {
-    filteredTodos () {
-      const newTodo = []
-      if (this.visibility === 'all') {
-        return this.todos
-      } if (this.visibility === 'doing') {
-        this.todos.forEach((item) => {
-          if (!item.completed) {
-            newTodo.push(item)
-          }
-        })
-        return newTodo
-      } if (this.visibility === 'completed') {
-        this.todos.forEach((item) => {
-          if (item.completed) {
-            newTodo.push(item)
-          }
-        })
-        return newTodo
-      }
+    allTodos () {
+      return this.todos
+    },
+    doneTodos () {
+      return this.todos.filter(todo => todo.completed)
+    },
+    undoneTodos () {
+      return this.todos.filter(todo => !todo.completed)
     },
     remaining () {
       return this.todos.filter(item => !item.completed)

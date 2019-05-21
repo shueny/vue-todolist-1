@@ -28,7 +28,7 @@
             {{ item.messageDate }}
           </span>
           <span class="comment-count px-2"
-          v-if="item.comments.length">
+          v-if="item">
             <b class="icon"><font-awesome-icon :icon="['far','comment-dots']"/></b>
             {{ item.comments.length }}
           </span>
