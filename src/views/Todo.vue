@@ -18,7 +18,7 @@
           <div class="todoList" v-if="allFilter">
             <TodoList
              v-for='item in allTodos'
-             :key='item.index'
+             :key='item.id'
              :item='item'
              @cancel-item='cancelEdit'
              @remove-todo='removeTodo'
@@ -32,7 +32,7 @@
           <div class="todoList" v-if="doneFilter">
             <TodoList
              v-for='item in doneTodos'
-             :key='item.index'
+             :key='item.id'
              :item='item'
              @cancel-item='cancelEdit'
              @remove-todo='removeTodo'
@@ -46,7 +46,7 @@
           <div class="todoList" v-if="todoFilter">
             <TodoList
              v-for='item in undoneTodos'
-             :key='item.index'
+             :key='item.id'
              :item='item'
              @cancel-item='cancelEdit'
              @remove-todo='removeTodo'

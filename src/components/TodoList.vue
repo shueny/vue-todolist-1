@@ -3,7 +3,8 @@
     <div class="list-group-item text-left">
         <div class="d-flex">
           <div class="form-check">
-            <label class="form-check-label" :class="{'completed': item.completed }">{{ item.title }}
+            <label class="form-check-label" :for="item.id"
+            :class="{'completed': item.completed }">{{ item.title }}
               <input class="form-check-input" type="checkbox"
               v-model="item.completed" :id="item.id"/>
               <span class="checkmark"></span>
